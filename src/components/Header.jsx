@@ -6,9 +6,12 @@ import { FaBasketShopping } from "react-icons/fa6";
 import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [theme, setTheme] = useState(false);
+
+  const navigate = useNavigate();
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -31,7 +34,7 @@ function Header() {
     <Navbar className="">
       <Container>
         <Navbar.Brand href="#home">
-          <div className="brand-logo"></div>
+          <div className="brand-logo" onClick={() => navigate("/")}></div>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">

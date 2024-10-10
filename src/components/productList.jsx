@@ -14,6 +14,7 @@ import {
   CardFooter,
 } from "react-bootstrap";
 import "../css/productList.css";
+import { useNavigate } from "react-router-dom";
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function ProductList() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
+
+  const navigate=useNavigate();
+
 
   return (
     <Container>
@@ -40,7 +44,7 @@ function ProductList() {
                 </CardBody>
                 <CardFooter>
                   {" "}
-                  <Button className="card-btn ">Detayları</Button>
+                  <Button className="card-btn " onClick={()=>navigate('/product-details/'+id)}>Detayları</Button>
                 </CardFooter>
               </Card>
             </Col>

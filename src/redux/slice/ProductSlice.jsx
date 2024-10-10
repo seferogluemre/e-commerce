@@ -22,7 +22,11 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
 export const productSlice = createSlice({
   name: "products",
   initialState: data,
-  reducers: {},
+  reducers: {
+    setSelectedProduct: (data, action) => {
+      data.selectedProduct = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // Eger beklemede ise yanıt bekliyor ise loading true çekip spinner yapısını gösteriyoruz
     builder.addCase(getAllProducts.pending, (state) => {
@@ -40,6 +44,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const {} = productSlice.actions;
+export const { setSelectedProduct } = productSlice.actions;
 
 export default productSlice.reducer;

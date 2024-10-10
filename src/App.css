@@ -1,4 +1,8 @@
+#root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 22px;
+}
 .custom-container {
-  padding-left: 350px; 
-  padding-right: 250px; 
+  padding-left: 350px;
+  padding-right: 250px;
 }
