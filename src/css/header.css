@@ -1,7 +1,11 @@
+#root {
+  height: 100vh;
+}
+
 .brand-logo {
   width: 88px;
   height: 90px;
-  background-image: url(../assets/images.jpeg);
+  background-image: url(../assets/images-removebg-preview.png);
   background-size: 100%;
   border: none;
 }
@@ -9,10 +13,16 @@
   border: none;
   border-bottom: 1px solid gray;
   padding: 9px 12px;
+  margin-right: 12px;
 }
 .nav-input:focus {
-  box-shadow: 0 3px 5px black;
-  border: 0px !important;
+  box-shadow: 0 3px 3px rgb(167, 167, 167);
   outline: none;
   border-radius: 5px;
+}
+.icon {
+  font-size: 26px;
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s ease;
 }
