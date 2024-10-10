@@ -7,6 +7,7 @@ import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Badge from "@mui/material/Badge";
 
 function Header() {
   const [theme, setTheme] = useState(false);
@@ -47,11 +48,13 @@ function Header() {
                 <CiLight className="light-icon icon" onClick={changeTheme} />
               )}
 
-              <FaBasketShopping className="cart-icon icon" />
+              <Badge badgeContent={4} color="error">
+                <FaBasketShopping className="cart-icon icon" />
+              </Badge>
             </div>
           </Navbar.Text>
         </Navbar.Collapse>
-      </Container>
+      </Container>  
     </Navbar>
   );
 }

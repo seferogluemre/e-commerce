@@ -3,22 +3,18 @@ import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setSelectedProduct } from "../redux/slice/ProductSlice";
-import { IoMdAdd } from "react-icons/io";
-import { IoMdRemove } from "react-icons/io";
+import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import "../css/ProductDetails.css";
+import { addToBasket } from "../redux/slice/BasketSlice"; // Doğru fonksiyon adı
 
 function ProductDetails() {
-  // ProductSlice Yapısından State timizi aldık selector aracılıgıyla
   const { products, selectedProduct } = useSelector((store) => store.products);
-  //   Adrese gönderilen ürünün id sini UseParams ile seçtik
   const { id } = useParams();
   const [count, setCount] = useState(0);
-  console.log(id);
   const dispatch = useDispatch();
 
   const { title, description, price, image } = selectedProduct;
 
-  //   Bütün ürünlerimizi gezdikten sonra hepsinin id sini parametreden gelen id ile karşılaştırıp eger true ise setSelectedProduct state'ine seçilen productı yükledik ve daha sonra verilerine erişim sagladık
   const getProductById = () => {
     products &&
       products.map((product) => {
@@ -26,6 +22,19 @@ function ProductDetails() {
           dispatch(setSelectedProduct(product));
         }
       });
+  };
+
+  const addBasket = () => {
+    const payload = {
+      id,
+      price,
+      title,
+      description,
+      image,
+      count: count,
+    };
+
+    dispatch(addToBasket(payload));
   };
 
   const increment = () => {
@@ -61,7 +70,7 @@ function ProductDetails() {
           </div>
           <div className="d-flex align-items-center column-gap-2">
             <IoMdAdd
-              onClick={() => increment()}
+              onClick={increment}
               style={{
                 fontSize: "50px",
                 border: "2px solid black",
@@ -71,7 +80,7 @@ function ProductDetails() {
             />
             <strong className="fs-4">{count}</strong>
             <IoMdRemove
-              onClick={() => decrement()}
+              onClick={decrement}
               style={{
                 fontSize: "50px",
                 border: "2px solid black",
@@ -81,7 +90,9 @@ function ProductDetails() {
             />
           </div>
           <div className="m-2">
-            <Button className="btn btn-danger fs-5">Sepete Ekle</Button>
+            <Button className="btn btn-danger fs-5" onClick={addBasket}>
+              Sepete Ekle
+            </Button>
           </div>
         </Col>
       </Row>
