@@ -1,9 +1,9 @@
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 function PageContainer({ children }) {
   return (
     <>
       <Container fluid className="custom-container">
-        {children}
+        <Row>{children}</Row>
       </Container>
     </>
   );

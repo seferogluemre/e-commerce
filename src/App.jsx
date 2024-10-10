@@ -1,7 +1,8 @@
 import "./App.css";
 import Header from "./components/Header";
-import ProductList from "./components/productList";
 import PageContainer from "./container/PageContainer";
+import RouterConfig from "./config/routerConfig";
+import Loading from "./components/Loading";
 
 function App() {
   return (
@@ -9,9 +10,8 @@ function App() {
       <PageContainer>
         <Header />
       </PageContainer>
-      <PageContainer>
-        <ProductList />
-      </PageContainer>
+      <RouterConfig />
+      <Loading />
     </>
   );
 }
