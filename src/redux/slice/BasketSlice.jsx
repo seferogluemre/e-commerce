@@ -63,11 +63,20 @@ export const basketSlice = createSlice({
         });
     },
 
+    deleteProduct: (state, action) => {
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload.id
+      );
+
+      writeLocalStorage(state.products);
+    },
+
     setDrawer: (state) => {
       state.drawer = !state.drawer;
     },
   },
 });
 
-export const { addToBasket, setDrawer, calculateBasket } = basketSlice.actions;
+export const { addToBasket, setDrawer, calculateBasket, deleteProduct } =
+  basketSlice.actions;
 export default basketSlice.reducer;

@@ -5,7 +5,11 @@ import RouterConfig from "./config/routerConfig";
 import Loading from "./components/Loading";
 import { Drawer } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { calculateBasket, setDrawer } from "./redux/slice/BasketSlice";
+import {
+  calculateBasket,
+  setDrawer,
+  deleteProduct,
+} from "./redux/slice/BasketSlice";
 import { useEffect } from "react";
 
 function App() {
@@ -16,7 +20,7 @@ function App() {
 
   useEffect(() => {
     dispatch(calculateBasket());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -41,7 +45,12 @@ function App() {
                   <strong style={{ color: "red" }}>Adet:({count})</strong>
                 </p>
                 <p className="price">{price}₺</p>
-                <button className="delete-btn">Sil</button>
+                <button
+                  onClick={() => dispatch(deleteProduct({ id }))}
+                  className="delete-btn"
+                >
+                  Sil
+                </button>
               </div>
             );
           })}
