@@ -1,6 +1,10 @@
 #root {
   height: 100vh;
 }
+.header {
+  box-shadow: 0 1px 2px black;
+  margin-bottom: 50px;
+}
 
 .brand-logo {
   width: 88px;

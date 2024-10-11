@@ -39,7 +39,7 @@ function Header({ searchTerm, setSearchTerm }) {
   };
 
   return (
-    <Navbar>
+    <Navbar className="header">
       <Container>
         <Navbar.Brand href="#home">
           <div className="brand-logo" onClick={() => navigate("/")}></div>

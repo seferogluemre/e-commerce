@@ -11,7 +11,7 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
   try {
     // Response data çekip deger olarak döndürdük
     const response = await axios.get(`https://fakestoreapi.com/products/`);
-    console.log(response.data); // Gelen veriyi kontrol et
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

@@ -30,7 +30,15 @@ function ProductList() {
 
   return (
     <Container>
-      <Row style={{ paddingRight: "10%", paddingLeft: "10%" }}>
+      <Row
+        style={{
+          paddingRight: "10%",
+          paddingLeft: "10%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+        className="mx-auto"
+      >
         {products &&
           products.map(({ id, image, title, price, rating }) => (
             <Col key={id} sm={12} lg={4} md={6}>

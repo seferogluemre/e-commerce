@@ -2,3 +2,7 @@
   height: 500px;
   width: 100%;
 }
+.details {
+  border: 2px solid gray;
+  border-radius: 15px;
+}

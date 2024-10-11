@@ -54,7 +54,7 @@ function ProductDetails() {
 
   return (
     <Container>
-      <Row>
+      <Row className="details">
         <Col lg={4} sm={12} md={6}>
           <Image src={image} className="image"></Image>
         </Col>
