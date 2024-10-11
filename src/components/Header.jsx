@@ -8,11 +8,18 @@ import { FaMoon } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
+import { useDispatch, useSelector } from "react-redux";
+import { setDrawer } from "../redux/slice/BasketSlice";
 
 function Header() {
+  const dispatch = useDispatch();
+
   const [theme, setTheme] = useState(false);
 
   const navigate = useNavigate();
+
+  // Store havuzumuzda olan kart yapımızdaki ürünleri alıyoruz
+  const { products } = useSelector((store) => store.basket);
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -48,13 +55,17 @@ function Header() {
                 <CiLight className="light-icon icon" onClick={changeTheme} />
               )}
 
-              <Badge badgeContent={4} color="error">
+              <Badge
+                onClick={() => dispatch(setDrawer())}
+                badgeContent={products.length}
+                color="error"
+              >
                 <FaBasketShopping className="cart-icon icon" />
               </Badge>
             </div>
           </Navbar.Text>
         </Navbar.Collapse>
-      </Container>  
+      </Container>
     </Navbar>
   );
 }

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { setSelectedProduct } from "../redux/slice/ProductSlice";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import "../css/ProductDetails.css";
-import { addToBasket } from "../redux/slice/BasketSlice"; // Doğru fonksiyon adı
+import { addToBasket, calculateBasket } from "../redux/slice/BasketSlice"; // Doğru fonksiyon adı
 
 function ProductDetails() {
   const { products, selectedProduct } = useSelector((store) => store.products);
@@ -35,6 +35,7 @@ function ProductDetails() {
     };
 
     dispatch(addToBasket(payload));
+    dispatch(calculateBasket());
   };
 
   const increment = () => {

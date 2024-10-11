@@ -1,8 +1,48 @@
 #root {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif !important;
   font-size: 22px;
 }
 .custom-container {
   padding-left: 350px;
   padding-right: 250px;
+}
+.cart-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #e4e0e1;
+}
+.cart-item .product-image {
+  width: 100px;
+  margin: 10px 20px;
+  height: 95px;
+}
+.cart-item .title {
+  width: 380px;
+  padding: 10px 20px;
+}
+.cart-item .price {
+  width: 100px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.cart-item .delete-btn {
+  padding: 7px 20px;
+  border: none;
+  margin: 5px 10px;
+  border-radius: 5px;
+  background-color: #f87272;
+  color: aliceblue;
+  font-size: 21px;
+}
+.cart-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 24px;
+  color: #e4e0e1;
+  background-color: #f1c40f;
 }
