@@ -10,13 +10,15 @@ import {
   setDrawer,
   deleteProduct,
 } from "./redux/slice/BasketSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const { products, drawer, totalAmount } = useSelector(
     (store) => store.basket
   );
   const dispatch = useDispatch();
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     dispatch(calculateBasket());
@@ -25,7 +27,7 @@ function App() {
   return (
     <>
       <PageContainer>
-        <Header />
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </PageContainer>
       <RouterConfig />
       <Loading />
@@ -54,6 +56,7 @@ function App() {
               </div>
             );
           })}
+
         <div className="cart-footer">
           Toplam Tutar: {totalAmount.toFixed(2)} TL
         </div>

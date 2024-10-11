@@ -26,8 +26,7 @@ function ProductList() {
     dispatch(getAllProducts());
   }, []);
 
-  const navigate=useNavigate();
-
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -44,7 +43,12 @@ function ProductList() {
                 </CardBody>
                 <CardFooter>
                   {" "}
-                  <Button className="card-btn " onClick={()=>navigate('/product-details/'+id)}>Detayları</Button>
+                  <Button
+                    className="card-btn "
+                    onClick={() => navigate("/product-details/" + id)}
+                  >
+                    Detayları
+                  </Button>
                 </CardFooter>
               </Card>
             </Col>

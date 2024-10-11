@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "../redux/slice/BasketSlice";
-
-function Header() {
+import PropTypes from "prop-types";
+function Header({ searchTerm, setSearchTerm }) {
   const dispatch = useDispatch();
 
   const [theme, setTheme] = useState(false);
@@ -39,7 +39,7 @@ function Header() {
   };
 
   return (
-    <Navbar className="">
+    <Navbar>
       <Container>
         <Navbar.Brand href="#home">
           <div className="brand-logo" onClick={() => navigate("/")}></div>
@@ -47,7 +47,13 @@ function Header() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="d-flex">
-            <input type="text" className="nav-input" placeholder="Arama..." />
+            <input
+              type="text"
+              className="nav-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Arama..."
+            />
             <div className="d-flex align-items-center ">
               {theme ? (
                 <FaMoon className="moon-icon icon" onClick={changeTheme} />
@@ -69,5 +75,10 @@ function Header() {
     </Navbar>
   );
 }
+
+Header.propTypes = {
+  searchTerm: PropTypes.string.isRequired, // searchTerm bir string olmalı ve zorunlu
+  setSearchTerm: PropTypes.func.isRequired, // setSearchTerm bir fonksiyon olmalı ve zorunlu
+};
 
 export default Header;
