@@ -1,8 +1,9 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Bu Projede
+--Redux Toolkit
+--Axios
+--Local Storage
+yapılarını kullanarak basit bir E-Ticaret sitesi hazırladım 
+axios ile apiye istek atılıp ürünlerin responsive bir şekilde anasayfada görüntülenmesini sagladım
+Headerde bulunan arama çubugunda kullanıcı ürünler üzerinde arama yapabiliyor
+Tıklanan ürünün detay sayfasında sepete ekleme işlemleri bulunuyor ve ek olarak 
+sepete eklenen ürünlerin Cart Yapısıyla gösterilmesini sagladım
