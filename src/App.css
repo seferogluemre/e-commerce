@@ -36,13 +36,24 @@
   font-size: 21px;
 }
 .cart-footer {
-  position: sticky !important;
-  bottom: 0;
-  left: 0;
+  position: fixed !important;
+  bottom: 0 !important;
+  right: 0 !important;
   width: 100%;
   padding: 10px 15px;
   text-align: center;
   font-size: 24px;
   color: #e4e0e1;
   background-color: #f1c40f;
+}
+.tekrarBtn {
+  background-color: #f87272;
+  padding: 9px 14px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px auto;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: aliceblue;
 }

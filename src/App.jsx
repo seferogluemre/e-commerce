@@ -59,6 +59,14 @@ function App() {
         <div className="cart-footer">
           Toplam Tutar: {totalAmount.toFixed(2)} TL
         </div>
+        <div>
+          <button
+            className="tekrarBtn"
+            onClick={() => dispatch(calculateBasket())}
+          >
+            Tutarı Tekrar Hesapla
+          </button>
+        </div>
       </Drawer>
     </>
   );

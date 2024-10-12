@@ -5,16 +5,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FaBasketShopping } from "react-icons/fa6";
 import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
-import { setDrawer } from "../redux/slice/BasketSlice";
+import {  setDrawer } from "../redux/slice/BasketSlice";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products } = useSelector((store) => store.products);
+  // const { cartLength } = useSelector((store) => store.basket);
+  const [cartLength, setCartLength] = useState(0); // Sepet uzunluğu için state
+
+  // console.log(cartLength);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartLength(storedCart.length);
+  }, []);
 
   const [theme, setTheme] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,7 +49,7 @@ function Header() {
   // Dropdown açılmasını kontrol et
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setShowDropdown(e.target.value.length > 0); // Arama kutusuna bir şey yazıldığında dropdown'u aç
+    setShowDropdown(e.target.value.length > 0);
   };
 
   // Dropdown'u kapat
@@ -83,7 +92,16 @@ function Header() {
                         Ürün adı: {data.title}
                       </h3>
                       <small style={{ fontSize: "13px" }}>
-                        Ürün Fiyat: {data.price}
+                        Ürün Fiyat:{" "}
+                        <strong
+                          style={{
+                            color: "red",
+                            fontWeight: "bold",
+                            fontSize: "16px",
+                          }}
+                        >
+                          {data.price}
+                        </strong>
                       </small>
                     </div>
                   </div>
@@ -98,8 +116,10 @@ function Header() {
               )}
 
               <Badge
-                onClick={() => dispatch(setDrawer())}
-                badgeContent={products.length}
+                onClick={() => {
+                  dispatch(setDrawer());
+                }}
+                badgeContent={cartLength}
                 color="error"
               >
                 <FaBasketShopping className="cart-icon icon" />

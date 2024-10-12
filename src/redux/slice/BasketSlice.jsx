@@ -20,10 +20,12 @@ const initialState = {
   products: getLocalCartData(),
   drawer: false,
   totalAmount: 0,
+  cartLength: 0,
 };
 
 const writeLocalStorage = (products) => {
   localStorage.setItem("cart", JSON.stringify(products));
+  addedProductToCart();
 };
 
 export const basketSlice = createSlice({
@@ -53,6 +55,7 @@ export const basketSlice = createSlice({
       }
       // Yeni ürünler tekrar eklendi
       writeLocalStorage(state.products);
+      addedProductToCart();
     },
 
     calculateBasket: (state) => {
@@ -63,13 +66,20 @@ export const basketSlice = createSlice({
         });
     },
 
+    addedProductToCart: (state) => {
+      // Sepet uzunluğunu güncelle
+      const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+      state.cartLength = cartData.length;
+    },
+
     deleteProduct: (state, action) => {
       state.products = state.products.filter(
         (product) => product.id !== action.payload.id
       );
-
+      if (state.products.length == 0) {
+        state.totalAmount = 0;
+      }
       writeLocalStorage(state.products);
-      state.totalAmount = 0;
     },
 
     setDrawer: (state) => {
@@ -78,6 +88,6 @@ export const basketSlice = createSlice({
   },
 });
 
-export const { addToBasket, setDrawer, calculateBasket, deleteProduct } =
+export const { addToBasket, setDrawer, calculateBasket, deleteProduct ,addedProductToCart} =
   basketSlice.actions;
 export default basketSlice.reducer;
