@@ -10,12 +10,22 @@ import {
   setDrawer,
   deleteProduct,
 } from "./redux/slice/BasketSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const { products, drawer, totalAmount } = useSelector(
     (store) => store.basket
   );
+  const navigate = useNavigate();
+  const [favoriteLength, setFavoriteLength] = useState(0);
+  const { favoriteProducts } = useSelector((store) => store.favorites);
+
+  // Favori ürünlerin uzunluğunu ayarlamak için useEffect
+  useEffect(() => {
+    setFavoriteLength(favoriteProducts.length);
+  }, [favoriteProducts]); // Burada favoriteProducts'a bağımlıyız tetiklemede sürekli render edilcek
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,8 +79,11 @@ function App() {
         </div>
       </Drawer>
 
-      <button className="btn btn-warning text-light fs-5 favoriteBtn">
-        Favori Ürünler 1
+      <button
+        className="btn btn-warning text-light fs-5 favoriteBtn"
+        onClick={() => navigate("/favorite-products")}
+      >
+        Favoriye Eklenen Ürün: {favoriteLength}
       </button>
     </>
   );

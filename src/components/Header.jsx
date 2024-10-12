@@ -38,8 +38,6 @@ function Header() {
     };
   }, []);
 
-  console.log(cartArray);
-
   let badgeContent = cartArray.length;
 
   const changeTheme = () => {

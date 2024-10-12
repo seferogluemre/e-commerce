@@ -6,6 +6,7 @@ import { setSelectedProduct } from "../redux/slice/ProductSlice";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import "../css/ProductDetails.css";
 import { addToBasket, calculateBasket } from "../redux/slice/BasketSlice"; // Doğru fonksiyon adı
+import { addToFavorite } from "../redux/slice/FavoriteProducts";
 
 function ProductDetails() {
   const { products, selectedProduct } = useSelector((store) => store.products);
@@ -46,6 +47,10 @@ function ProductDetails() {
     if (count > 0) {
       setCount(count - 1);
     }
+  };
+
+  const handleFavorites = (product) => {
+    dispatch(addToFavorite(product));
   };
 
   useEffect(() => {
@@ -96,9 +101,12 @@ function ProductDetails() {
             </Button>
           </div>
           <div className="m-2">
-            <button className="btn btn-warning fs-5 text-light">
-              Favorilere Ekle
-            </button>
+            <Button
+              onClick={() => handleFavorites({ id, image, title, price })}
+              className="btn btn-warning text-light"
+            >
+              Favoriye Ekle &#9829;
+            </Button>
           </div>
         </Col>
       </Row>

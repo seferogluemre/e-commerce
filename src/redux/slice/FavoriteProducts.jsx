@@ -11,7 +11,7 @@ export const favoriteProductSlice = createSlice({
   reducers: {
     addToFavorite: (state, action) => {
       const findProduct = state.favoriteProducts.find(
-        (product) => product.id === action.payload.id
+        (product) => product.id == action.payload.id
       );
 
       if (!findProduct) {
