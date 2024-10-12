@@ -68,6 +68,10 @@ function App() {
           </button>
         </div>
       </Drawer>
+
+      <button className="btn btn-warning text-light fs-5 favoriteBtn">
+        Favori Ürünler 1
+      </button>
     </>
   );
 }

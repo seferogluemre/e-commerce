@@ -95,6 +95,11 @@ function ProductDetails() {
               Sepete Ekle
             </Button>
           </div>
+          <div className="m-2">
+            <button className="btn btn-warning fs-5 text-light">
+              Favorilere Ekle
+            </button>
+          </div>
         </Col>
       </Row>
     </Container>

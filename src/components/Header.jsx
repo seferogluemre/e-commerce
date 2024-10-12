@@ -9,25 +9,38 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
-import {  setDrawer } from "../redux/slice/BasketSlice";
+import { setDrawer } from "../redux/slice/BasketSlice";
 
 function Header() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { products } = useSelector((store) => store.products);
-  // const { cartLength } = useSelector((store) => store.basket);
-  const [cartLength, setCartLength] = useState(0); // Sepet uzunluğu için state
-
-  // console.log(cartLength);
-
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartLength(storedCart.length);
-  }, []);
-
   const [theme, setTheme] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false); // Dropdown görünürlüğü için state
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products } = useSelector((store) => store.products);
+  const [cartArray, setCartArray] = useState([]);
+
+  useEffect(() => {
+    // localStorage  verileri al
+    const storedItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartArray(storedItems);
+
+    // storage olayını dinleme
+    const handleStorageChange = () => {
+      const updatedItems = JSON.parse(localStorage.getItem("cart")) || [];
+      setCartArray(updatedItems);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  console.log(cartArray);
+
+  let badgeContent = cartArray.length;
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -119,7 +132,7 @@ function Header() {
                 onClick={() => {
                   dispatch(setDrawer());
                 }}
-                badgeContent={cartLength}
+                badgeContent={badgeContent}
                 color="error"
               >
                 <FaBasketShopping className="cart-icon icon" />

@@ -55,6 +55,7 @@ export const basketSlice = createSlice({
       }
       // Yeni ürünler tekrar eklendi
       writeLocalStorage(state.products);
+      calculateBasket();
       addedProductToCart();
     },
 
@@ -88,6 +89,11 @@ export const basketSlice = createSlice({
   },
 });
 
-export const { addToBasket, setDrawer, calculateBasket, deleteProduct ,addedProductToCart} =
-  basketSlice.actions;
+export const {
+  addToBasket,
+  setDrawer,
+  calculateBasket,
+  deleteProduct,
+  addedProductToCart,
+} = basketSlice.actions;
 export default basketSlice.reducer;

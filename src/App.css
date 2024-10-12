@@ -38,11 +38,14 @@
 .cart-footer {
   position: fixed !important;
   bottom: 0 !important;
-  right: 0 !important;
-  width: 100%;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 15px;
   padding: 10px 15px;
   text-align: center;
   font-size: 24px;
+  box-shadow: 11px 12px 22px rgb(166, 166, 166);
   color: #e4e0e1;
   background-color: #f1c40f;
 }
@@ -56,4 +59,13 @@
   justify-content: center;
   font-weight: bold;
   color: aliceblue;
+}
+.favoriteBtn {
+  position: fixed !important;
+  bottom: 15px !important;
+  right: 25px;
+  border-radius: 15px !important;
+  box-shadow: 1px 3px 7px 1px orange;
+  border: none;
+  outline: none;
 }
