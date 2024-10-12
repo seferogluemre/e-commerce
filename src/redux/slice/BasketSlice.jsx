@@ -69,6 +69,7 @@ export const basketSlice = createSlice({
       );
 
       writeLocalStorage(state.products);
+      state.totalAmount = 0;
     },
 
     setDrawer: (state) => {

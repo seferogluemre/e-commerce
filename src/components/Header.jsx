@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "../redux/slice/BasketSlice";
-import PropTypes from "prop-types";
 
 function Header() {
   const dispatch = useDispatch();
@@ -19,6 +18,7 @@ function Header() {
 
   const [theme, setTheme] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false); // Dropdown görünürlüğü için state
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -36,12 +36,20 @@ function Header() {
 
     setTheme(!theme);
   };
-  console.log("Search Term:", searchTerm);
-  console.log(
-    "Filtered Products:",
-    products.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+
+  // Dropdown açılmasını kontrol et
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setShowDropdown(e.target.value.length > 0); // Arama kutusuna bir şey yazıldığında dropdown'u aç
+  };
+
+  // Dropdown'u kapat
+  const handleDropdownClose = () => {
+    setShowDropdown(false);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -58,27 +66,30 @@ function Header() {
                 type="text"
                 className="nav-input"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearchChange}
+                onBlur={handleDropdownClose} // Dropdown dışına tıklandığında kapat
                 placeholder="Arama..."
               />
-              {products
-                .filter((product) => {
-                  if (searchTerm === "") {
-                    return true; // Tüm ürünleri döndür
-                  }
-                  return product.title
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase());
-                })
-                .map((data) => {
-                  return (
-                    <div key={data.id}>
-                      <img src={data.image} alt={data.title} />
-                      <h3>Ürün adı: {data.title}</h3>
-                    </div>
-                  );
-                })}
             </div>
+            {showDropdown && filteredProducts.length > 0 && (
+              <div className="dropdown">
+                {filteredProducts.map((data) => (
+                  <div key={data.id} className="dropdown-item">
+                    <div>
+                      <img src={data.image} alt={data.title} className="img" />
+                    </div>
+                    <div className="columnTwo">
+                      <h3 style={{ fontSize: "14px" }}>
+                        Ürün adı: {data.title}
+                      </h3>
+                      <small style={{ fontSize: "13px" }}>
+                        Ürün Fiyat: {data.price}
+                      </small>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="d-flex align-items-center">
               {theme ? (
                 <FaMoon className="moon-icon icon" onClick={changeTheme} />
@@ -100,10 +111,5 @@ function Header() {
     </Navbar>
   );
 }
-
-Header.propTypes = {
-  searchTerm: PropTypes.string.isRequired,
-  setSearchTerm: PropTypes.func.isRequired,
-};
 
 export default Header;

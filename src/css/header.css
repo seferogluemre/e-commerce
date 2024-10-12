@@ -4,6 +4,7 @@
 .header {
   box-shadow: 0 1px 2px black;
   margin-bottom: 50px;
+  position: relative !important;
 }
 
 .brand-logo {
@@ -32,20 +33,69 @@
   transition: color 0.3s ease;
 }
 .dropdown {
-  position: absolute; /* Konumlandırmayı ayarla */
-  background-color: white; /* Arka plan rengi */
-  border: 1px solid #ccc; /* Kenarlık rengi */
-  border-radius: 4px; /* Kenar yuvarlama */
-  max-height: 200px; /* Yükseklik sınırlaması */
-  overflow-y: auto; /* Taşmayı engelle */
-  z-index: 1000; /* Diğer öğelerin üstünde göster */
+  position: absolute !important;
+  top: 120px;
+  height: 550px !important;
+  left: 60%;
+  width: 650px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #f5f3f4 !important;
+  z-index: 1050;
+  border-radius: 15px;
+  box-shadow: 0px 5px 32px gray;
 }
 
 .dropdown-item {
-  padding: 10px; /* İç boşluk */
-  cursor: pointer; /* Fare imlecini el şeklinde göster */
+  background-color: #e4e4e4 !important;
+  width: 570px !important;
+  border-radius: 7px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  padding: 6px 9px !important;
+  margin: 25px;
+  text-align: start;
+  box-shadow: 0px 8px 15px gray;
 }
-
-.dropdown-item:hover {
-  background-color: #f0f0f0; /* Hover efekti */
+.dropdown .columnTwo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 50px;
+}
+.dropdown .img {
+  width: 80px;
+  height: 75px;
+}
+@media (max-width: 992px) {
+  .dropdown {
+    position: absolute !important;
+    top: 120px;
+    height: 490px !important;
+    left: 50%;
+    width: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #f5f3f4 !important;
+    z-index: 1050;
+    border-radius: 15px;
+    box-shadow: 0px 5px 32px gray;
+  }
+}
+@media (max-width: 536px) {
+  .dropdown {
+    position: absolute !important;
+    top: 120px;
+    height: 490px !important;
+    left: 22%;
+    width: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #f5f3f4 !important;
+    z-index: 1050;
+    border-radius: 15px;
+    box-shadow: 0px 5px 32px gray;
+  }
 }
