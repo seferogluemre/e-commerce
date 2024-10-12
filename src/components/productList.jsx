@@ -41,7 +41,7 @@ function ProductList() {
       >
         {products &&
           products.map(({ id, image, title, price, rating }) => (
-            <Col key={id} sm={12} lg={4} md={6}>
+            <Col key={id} sm={12} lg={4} md={6} xl={3}>
               <Card className="card">
                 <CardImg className="productImage" src={image}></CardImg>
                 <CardTitle> {title}</CardTitle>

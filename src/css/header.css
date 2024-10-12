@@ -31,3 +31,21 @@
   margin-left: 10px;
   transition: color 0.3s ease;
 }
+.dropdown {
+  position: absolute; /* Konumlandırmayı ayarla */
+  background-color: white; /* Arka plan rengi */
+  border: 1px solid #ccc; /* Kenarlık rengi */
+  border-radius: 4px; /* Kenar yuvarlama */
+  max-height: 200px; /* Yükseklik sınırlaması */
+  overflow-y: auto; /* Taşmayı engelle */
+  z-index: 1000; /* Diğer öğelerin üstünde göster */
+}
+
+.dropdown-item {
+  padding: 10px; /* İç boşluk */
+  cursor: pointer; /* Fare imlecini el şeklinde göster */
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0; /* Hover efekti */
+}

@@ -10,15 +10,13 @@ import {
   setDrawer,
   deleteProduct,
 } from "./redux/slice/BasketSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   const { products, drawer, totalAmount } = useSelector(
     (store) => store.basket
   );
   const dispatch = useDispatch();
-
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     dispatch(calculateBasket());
@@ -27,9 +25,10 @@ function App() {
   return (
     <>
       <PageContainer>
-        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Header />
       </PageContainer>
       <RouterConfig />
+
       <Loading />
       <Drawer
         open={drawer}

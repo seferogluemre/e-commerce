@@ -11,15 +11,14 @@ import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "../redux/slice/BasketSlice";
 import PropTypes from "prop-types";
-function Header({ searchTerm, setSearchTerm }) {
+
+function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products } = useSelector((store) => store.products);
 
   const [theme, setTheme] = useState(false);
-
-  const navigate = useNavigate();
-
-  // Store havuzumuzda olan kart yapımızdaki ürünleri alıyoruz
-  const { products } = useSelector((store) => store.basket);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -37,6 +36,13 @@ function Header({ searchTerm, setSearchTerm }) {
 
     setTheme(!theme);
   };
+  console.log("Search Term:", searchTerm);
+  console.log(
+    "Filtered Products:",
+    products.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   return (
     <Navbar className="header">
@@ -47,14 +53,33 @@ function Header({ searchTerm, setSearchTerm }) {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="d-flex">
-            <input
-              type="text"
-              className="nav-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Arama..."
-            />
-            <div className="d-flex align-items-center ">
+            <div style={{ position: "relative" }}>
+              <input
+                type="text"
+                className="nav-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Arama..."
+              />
+              {products
+                .filter((product) => {
+                  if (searchTerm === "") {
+                    return true; // Tüm ürünleri döndür
+                  }
+                  return product.title
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+                })
+                .map((data) => {
+                  return (
+                    <div key={data.id}>
+                      <img src={data.image} alt={data.title} />
+                      <h3>Ürün adı: {data.title}</h3>
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="d-flex align-items-center">
               {theme ? (
                 <FaMoon className="moon-icon icon" onClick={changeTheme} />
               ) : (
@@ -77,8 +102,8 @@ function Header({ searchTerm, setSearchTerm }) {
 }
 
 Header.propTypes = {
-  searchTerm: PropTypes.string.isRequired, // searchTerm bir string olmalı ve zorunlu
-  setSearchTerm: PropTypes.func.isRequired, // setSearchTerm bir fonksiyon olmalı ve zorunlu
+  searchTerm: PropTypes.string.isRequired,
+  setSearchTerm: PropTypes.func.isRequired,
 };
 
 export default Header;
