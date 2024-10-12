@@ -1,0 +1,27 @@
+.favorite-cart .image {
+  display: flex !important;
+  justify-content: space-between !important;
+  flex-direction: row;
+  align-items: center;
+  height: 210%;
+}
+.image img {
+  width: 20%;
+  border-radius: 15px;
+  float: center;
+  text-align: center;
+  height: 10% !important;
+}
+
+.favorite-cart {
+  margin: 10px;
+  box-shadow: 0px 0px 5px 3px #cbcbcb;
+  display: flex;
+  user-select: text;
+  background-color: #f4f3f3;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  border-radius: 10px;
+  padding: 10px 20px;
+}

@@ -77,6 +77,7 @@ export const basketSlice = createSlice({
       state.products = state.products.filter(
         (product) => product.id !== action.payload.id
       );
+      calculateBasket();
       if (state.products.length == 0) {
         state.totalAmount = 0;
       }

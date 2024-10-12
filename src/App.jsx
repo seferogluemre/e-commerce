@@ -17,20 +17,22 @@ function App() {
   const { products, drawer, totalAmount } = useSelector(
     (store) => store.basket
   );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [favoriteLength, setFavoriteLength] = useState(0);
   const { favoriteProducts } = useSelector((store) => store.favorites);
 
-  // Favori ürünlerin uzunluğunu ayarlamak için useEffect
   useEffect(() => {
-    setFavoriteLength(favoriteProducts.length);
-  }, [favoriteProducts]); // Burada favoriteProducts'a bağımlıyız tetiklemede sürekli render edilcek
-
-  const dispatch = useDispatch();
+    if (favoriteProducts) {
+      setFavoriteLength(favoriteProducts.length);
+    }
+  }, [favoriteProducts]);
 
   useEffect(() => {
     dispatch(calculateBasket());
   }, [dispatch]);
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -38,7 +40,6 @@ function App() {
         <Header />
       </PageContainer>
       <RouterConfig />
-
       <Loading />
       <Drawer
         open={drawer}
@@ -57,7 +58,9 @@ function App() {
                 </p>
                 <p className="price">{price}₺</p>
                 <button
-                  onClick={() => dispatch(deleteProduct({ id }))}
+                  onClick={() =>
+                    dispatch(deleteProduct({ id }), calculateBasket())
+                  }
                   className="delete-btn"
                 >
                   Sil
@@ -79,12 +82,14 @@ function App() {
         </div>
       </Drawer>
 
-      <button
-        className="btn btn-warning text-light fs-5 favoriteBtn"
-        onClick={() => navigate("/favorite-products")}
-      >
-        Favoriye Eklenen Ürün: {favoriteLength}
-      </button>
+      {favoriteLength > 0 && (
+        <button
+          className="btn btn-warning text-light fs-5 favoriteBtn"
+          onClick={() => navigate("/favorite-products")}
+        >
+          Favoriye Eklenen Ürün: {favoriteLength}
+        </button>
+      )}
     </>
   );
 }

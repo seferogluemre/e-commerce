@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
 const data = {
   products: [],
   selectedProduct: {},
   loading: false,
 };
-
 export const getAllProducts = createAsyncThunk("getProduct", async () => {
   try {
     // Response data çekip deger olarak döndürdük
@@ -18,7 +16,6 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
     throw error;
   }
 });
-
 export const productSlice = createSlice({
   name: "products",
   initialState: data,
@@ -37,13 +34,12 @@ export const productSlice = createSlice({
     });
 
     // Apiden gelen data başarılı dönerse gönderecegimiz state yakalıyoruz ve action.payload ile yüklüyoruz
+
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload;
     });
   },
 });
-
 export const { setSelectedProduct } = productSlice.actions;
-
 export default productSlice.reducer;

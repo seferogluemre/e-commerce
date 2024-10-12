@@ -62,7 +62,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 20px 50px;
+  padding: 10px;
 }
 .dropdown .img {
   width: 80px;

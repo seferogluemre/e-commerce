@@ -5,23 +5,33 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FaBasketShopping } from "react-icons/fa6";
 import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
+import { IoHeartDislikeOutline } from "react-icons/io5";
 import { setDrawer } from "../redux/slice/BasketSlice";
+import { FaHeart } from "react-icons/fa6";
+import {
+  addToFavorite,
+  removeFavorites,
+} from "../redux/slice/FavoriteProducts";
 
 function Header() {
   const [theme, setTheme] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false); // Dropdown görünürlüğü için state
+  const [showDropdown, setShowDropdown] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products } = useSelector((store) => store.products);
   const [cartArray, setCartArray] = useState([]);
+  const [heart, setHeart] = useState(true);
+
+  const inputRef = useRef(null); // Input alanı için referans
+  const dropdownRef = useRef(null); // Dropdown için referans
 
   useEffect(() => {
-    // localStorage  verileri al
+    // localStorage verileri al
     const storedItems = JSON.parse(localStorage.getItem("cart")) || [];
     setCartArray(storedItems);
 
@@ -57,16 +67,38 @@ function Header() {
     setTheme(!theme);
   };
 
+  const favoriteControl = (product) => {
+    heart
+      ? dispatch(addToFavorite(product))
+      : dispatch(removeFavorites(product));
+    setHeart(!heart);
+  };
+
   // Dropdown açılmasını kontrol et
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     setShowDropdown(e.target.value.length > 0);
   };
 
-  // Dropdown'u kapat
-  const handleDropdownClose = () => {
-    setShowDropdown(false);
-  };
+  // Dropdown dışına tıklanmasını kontrol et
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target) && // Input dışına tıklandığında
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) // Dropdown dışına tıklandığında
+      ) {
+        setShowDropdown(false); // Dropdown'u kapat
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [inputRef, dropdownRef]);
 
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -86,24 +118,33 @@ function Header() {
                 type="text"
                 className="nav-input"
                 value={searchTerm}
+                ref={inputRef} // Input için referans
                 onChange={handleSearchChange}
-                onBlur={handleDropdownClose} // Dropdown dışına tıklandığında kapat
                 placeholder="Arama..."
               />
             </div>
             {showDropdown && filteredProducts.length > 0 && (
-              <div className="dropdown">
-                {filteredProducts.map((data) => (
-                  <div key={data.id} className="dropdown-item">
+              <div className="dropdown" ref={dropdownRef}>
+                {" "}
+                {/* Dropdown referansı */}
+                {filteredProducts.map(({ id, image, price, title }) => (
+                  <div key={id} className="dropdown-item">
                     <div>
-                      <img src={data.image} alt={data.title} className="img" />
+                      <img src={image} alt={title} className="img" />
                     </div>
                     <div className="columnTwo">
-                      <h3 style={{ fontSize: "14px" }}>
-                        Ürün adı: {data.title}
+                      <h3
+                        style={{
+                          fontSize: "14px",
+                          paddingRight: "80px",
+                          height: "30px",
+                          textWrap: "wrap",
+                        }}
+                      >
+                        Ürün adı: {title}
                       </h3>
-                      <small style={{ fontSize: "13px" }}>
-                        Ürün Fiyat:{" "}
+                      <small style={{ fontSize: "13px", textAlign: "start" }}>
+                        Ürün Fiyat:
                         <strong
                           style={{
                             color: "red",
@@ -111,9 +152,28 @@ function Header() {
                             fontSize: "16px",
                           }}
                         >
-                          {data.price}
+                          {price}
                         </strong>
                       </small>
+                    </div>
+                    <div>
+                      <h4>
+                        {heart ? (
+                          <FaHeart
+                            onClick={() =>
+                              favoriteControl({ id, image, price, title })
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        ) : (
+                          <IoHeartDislikeOutline
+                            onClick={() =>
+                              favoriteControl({ id, image, price, title })
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        )}
+                      </h4>
                     </div>
                   </div>
                 ))}

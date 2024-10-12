@@ -52,7 +52,7 @@ function ProductList() {
                   <CardText>Fiyat: {price}</CardText>
                   <CardText>Puan: {rating.rate}</CardText>
                 </CardBody>
-                <CardFooter>
+                <CardFooter className="card-footer">
                   <Button
                     className="card-btn"
                     onClick={() => navigate("/product-details/" + id)}
@@ -60,7 +60,7 @@ function ProductList() {
                     Detayları
                   </Button>
                 </CardFooter>
-                <CardFooter>
+                <CardFooter className="card-footer">
                   <Button
                     onClick={() =>
                       handleFavorites({ id, image, title, price, rating })
