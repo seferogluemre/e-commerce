@@ -25,7 +25,7 @@ function Header() {
   const navigate = useNavigate();
   const { products } = useSelector((store) => store.products);
   const [cartArray, setCartArray] = useState([]);
-  const [heart, setHeart] = useState(true);
+  const [favoriteProducts, setFavoriteProducts] = useState({}); // Her ürün için favori durumu
 
   const inputRef = useRef(null); // Input alanı için referans
   const dropdownRef = useRef(null); // Dropdown için referans
@@ -68,10 +68,20 @@ function Header() {
   };
 
   const favoriteControl = (product) => {
-    heart
-      ? dispatch(addToFavorite(product))
-      : dispatch(removeFavorites(product));
-    setHeart(!heart);
+    // Dışardan aldıgımız ürün favoriÜrünler Dizisinde Varmı yokmu kontrol ettik
+    const isFavorited = favoriteProducts[product.id];
+
+    // isFavori true dönerse ürün var demektir ve olan ürünü çıkarmamız gerekiyor
+    if (isFavorited) {
+      // Çıkarmak istedigimiz ürünü parametre olarak geçip sildik
+      dispatch(removeFavorites(product));
+      // Ve Favori ürünleri günncelemek için hepsini proc olarak yakalayıp var olan procları tekrar güncelledikten sonra bizim product.id mizi false çekerek favorilerden kaldırdık
+      setFavoriteProducts((proc) => ({ ...proc, [product.id]: false }));
+    } else {
+      // Burdada aynı mantık ama tam tersi busefer ekleme yapıp alt kısımda eklendigini anlamak için true yaptık
+      dispatch(addToFavorite(product));
+      setFavoriteProducts((proc) => ({ ...proc, [product.id]: true }));
+    }
   };
 
   // Dropdown açılmasını kontrol et
@@ -158,15 +168,15 @@ function Header() {
                     </div>
                     <div>
                       <h4>
-                        {heart ? (
-                          <FaHeart
+                        {favoriteProducts[id] ? (
+                          <IoHeartDislikeOutline
                             onClick={() =>
                               favoriteControl({ id, image, price, title })
                             }
                             style={{ cursor: "pointer" }}
                           />
                         ) : (
-                          <IoHeartDislikeOutline
+                          <FaHeart
                             onClick={() =>
                               favoriteControl({ id, image, price, title })
                             }

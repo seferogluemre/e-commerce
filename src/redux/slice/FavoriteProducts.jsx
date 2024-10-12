@@ -13,7 +13,7 @@ export const favoriteProductSlice = createSlice({
       const findProduct = state.favoriteProducts.find(
         (product) => product.id == action.payload.id
       );
-      
+
       if (!findProduct) {
         state.favoriteProducts.push(action.payload);
         localStorage.setItem(
@@ -23,16 +23,16 @@ export const favoriteProductSlice = createSlice({
       }
     },
     removeFavorites: (state, action) => {
-      const removedProduct = state.favoriteProducts.filter(
+      // Kaldırılan ürünü filtrele
+      state.favoriteProducts = state.favoriteProducts.filter(
         (product) => product.id !== action.payload.id
       );
 
+      // Güncellenen favori ürün listesini yerel depolamaya kaydet
       localStorage.setItem(
-        "favoritesProducts",
-        JSON.stringify([...state.favoriteProducts, removedProduct])
+        "favoriteProducts",
+        JSON.stringify(state.favoriteProducts)
       );
-
-      return removeFavorites;
     },
 
     setFavoritesFromStorage: (state, action) => {
